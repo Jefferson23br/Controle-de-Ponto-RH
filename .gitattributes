@@ -1,2 +1,5 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Markdown: normalizar fim de linha (evita diffs ruidosos entre Windows/macOS/Linux)
+*.md text eol=lf

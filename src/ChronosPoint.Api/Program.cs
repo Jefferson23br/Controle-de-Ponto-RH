@@ -6,6 +6,7 @@
 
 using ChronosPoint.Infrastructure;
 using ChronosPoint.Infrastructure.Persistence;
+using ChronosPoint.Api;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -63,5 +64,8 @@ app.MapGet("/api/health/database", async (IServiceProvider sp, CancellationToken
         ? Results.Ok(new { status = "ok", database = "oracle" })
         : Results.Problem("Nao foi possivel ligar ao Oracle.", statusCode: 503);
 });
+
+// Rotas de negocio agrupadas em extensoes (ficheiros separados) para o Program.cs ficar legivel.
+app.MapTenantsApi();
 
 app.Run();

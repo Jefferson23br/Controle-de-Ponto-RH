@@ -1,0 +1,16 @@
+C:\Users\vivo\Controle-de-Ponto-RH\src\ChronosPoint.Application\bin\Debug\net9.0\ChronosPoint.Application.deps.json
+C:\Users\vivo\Controle-de-Ponto-RH\src\ChronosPoint.Application\bin\Debug\net9.0\ChronosPoint.Application.dll
+C:\Users\vivo\Controle-de-Ponto-RH\src\ChronosPoint.Application\bin\Debug\net9.0\ChronosPoint.Application.pdb
+C:\Users\vivo\Controle-de-Ponto-RH\src\ChronosPoint.Application\bin\Debug\net9.0\ChronosPoint.Domain.dll
+C:\Users\vivo\Controle-de-Ponto-RH\src\ChronosPoint.Application\bin\Debug\net9.0\ChronosPoint.Domain.pdb
+C:\Users\vivo\Controle-de-Ponto-RH\src\ChronosPoint.Application\obj\Debug\net9.0\ChronosPoint.Application.csproj.AssemblyReference.cache
+C:\Users\vivo\Controle-de-Ponto-RH\src\ChronosPoint.Application\obj\Debug\net9.0\ChronosPoint.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\vivo\Controle-de-Ponto-RH\src\ChronosPoint.Application\obj\Debug\net9.0\ChronosPoint.Application.AssemblyInfoInputs.cache
+C:\Users\vivo\Controle-de-Ponto-RH\src\ChronosPoint.Application\obj\Debug\net9.0\ChronosPoint.Application.AssemblyInfo.cs
+C:\Users\vivo\Controle-de-Ponto-RH\src\ChronosPoint.Application\obj\Debug\net9.0\ChronosPoint.Application.csproj.CoreCompileInputs.cache
+C:\Users\vivo\Controle-de-Ponto-RH\src\ChronosPoint.Application\obj\Debug\net9.0\ChronosPoint.Application.sourcelink.json
+C:\Users\vivo\Controle-de-Ponto-RH\src\ChronosPoint.Application\obj\Debug\net9.0\ChronosP.3ACCB8D8.Up2Date
+C:\Users\vivo\Controle-de-Ponto-RH\src\ChronosPoint.Application\obj\Debug\net9.0\ChronosPoint.Application.dll
+C:\Users\vivo\Controle-de-Ponto-RH\src\ChronosPoint.Application\obj\Debug\net9.0\refint\ChronosPoint.Application.dll
+C:\Users\vivo\Controle-de-Ponto-RH\src\ChronosPoint.Application\obj\Debug\net9.0\ChronosPoint.Application.pdb
+C:\Users\vivo\Controle-de-Ponto-RH\src\ChronosPoint.Application\obj\Debug\net9.0\ref\ChronosPoint.Application.dll

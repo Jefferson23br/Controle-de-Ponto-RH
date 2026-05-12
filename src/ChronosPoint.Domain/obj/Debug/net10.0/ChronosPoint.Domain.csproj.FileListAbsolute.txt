@@ -1,0 +1,12 @@
+C:\Users\vivo\Controle-de-Ponto-RH\src\ChronosPoint.Domain\bin\Debug\net10.0\ChronosPoint.Domain.deps.json
+C:\Users\vivo\Controle-de-Ponto-RH\src\ChronosPoint.Domain\bin\Debug\net10.0\ChronosPoint.Domain.dll
+C:\Users\vivo\Controle-de-Ponto-RH\src\ChronosPoint.Domain\bin\Debug\net10.0\ChronosPoint.Domain.pdb
+C:\Users\vivo\Controle-de-Ponto-RH\src\ChronosPoint.Domain\obj\Debug\net10.0\ChronosPoint.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\vivo\Controle-de-Ponto-RH\src\ChronosPoint.Domain\obj\Debug\net10.0\ChronosPoint.Domain.AssemblyInfoInputs.cache
+C:\Users\vivo\Controle-de-Ponto-RH\src\ChronosPoint.Domain\obj\Debug\net10.0\ChronosPoint.Domain.AssemblyInfo.cs
+C:\Users\vivo\Controle-de-Ponto-RH\src\ChronosPoint.Domain\obj\Debug\net10.0\ChronosPoint.Domain.csproj.CoreCompileInputs.cache
+C:\Users\vivo\Controle-de-Ponto-RH\src\ChronosPoint.Domain\obj\Debug\net10.0\ChronosPoint.Domain.sourcelink.json
+C:\Users\vivo\Controle-de-Ponto-RH\src\ChronosPoint.Domain\obj\Debug\net10.0\ChronosPoint.Domain.dll
+C:\Users\vivo\Controle-de-Ponto-RH\src\ChronosPoint.Domain\obj\Debug\net10.0\refint\ChronosPoint.Domain.dll
+C:\Users\vivo\Controle-de-Ponto-RH\src\ChronosPoint.Domain\obj\Debug\net10.0\ChronosPoint.Domain.pdb
+C:\Users\vivo\Controle-de-Ponto-RH\src\ChronosPoint.Domain\obj\Debug\net10.0\ref\ChronosPoint.Domain.dll

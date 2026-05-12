@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Microsoft.Extensions.Configuration;
+using Oracle.ManagedDataAccess.Client;
 
 namespace ChronosPoint.Infrastructure;
 
@@ -22,20 +23,30 @@ public static class OracleConnectionResolver
             return configured;
         }
 
-        var host = configuration["ORACLE_HOST"];
-        var port = configuration["ORACLE_PORT"] ?? "1521";
-        var serviceName = configuration["ORACLE_SERVICE_NAME"];
-        var user = configuration["ORACLE_USER"];
-        var password = configuration["ORACLE_PASSWORD"];
+        var host = configuration["ORACLE_HOST"]?.Trim();
+        var port = (configuration["ORACLE_PORT"] ?? "1521").Trim();
+        var serviceName = configuration["ORACLE_SERVICE_NAME"]?.Trim();
+        var user = configuration["ORACLE_USER"]?.Trim();
+        var password = configuration["ORACLE_PASSWORD"]?.Trim();
 
         if (string.IsNullOrWhiteSpace(host) ||
             string.IsNullOrWhiteSpace(serviceName) ||
             string.IsNullOrWhiteSpace(user) ||
-            password is null)
+            string.IsNullOrWhiteSpace(password))
         {
             return null;
         }
 
-        return $"User Id={user};Password={password};Data Source={host}:{port}/{serviceName}";
+        // Easy Connect (host:port/svc) + password com @ no fim pode confundir alguns caminhos; DESCRIPTION e mais explicito.
+        var dataSource =
+            $"(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST={host})(PORT={port}))(CONNECT_DATA=(SERVICE_NAME={serviceName})))";
+
+        var builder = new OracleConnectionStringBuilder
+        {
+            UserID = user,
+            Password = password,
+            DataSource = dataSource,
+        };
+        return builder.ConnectionString;
     }
 }

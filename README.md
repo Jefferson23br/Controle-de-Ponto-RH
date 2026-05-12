@@ -111,18 +111,24 @@ Para manter o repositório seguro e adequado a **portfólio público**:
 
 Contribuições e evolução do código devem respeitar a mesma linha.
 
-## Estrutura esperada do código (quando o monorepo for criado)
+## Estrutura do repositório (backend iniciado)
 
 ```
+ChronosPoint.sln
+database/oracle/
+  01-create-user.sql.example
+  README.md
 /src
   /ChronosPoint.Domain
   /ChronosPoint.Application
   /ChronosPoint.Infrastructure
   /ChronosPoint.Api
-  /ChronosPoint.Web
+  (ChronosPoint.Web Blazor, a criar)
 /tests
 /docs
 ```
+
+Instruções Oracle, connection string e `dotnet ef`: [`database/oracle/README.md`](database/oracle/README.md).
 
 Em `docs/`: [`HANDOFF.md`](docs/HANDOFF.md) e [`CHANGELOG.md`](docs/CHANGELOG.md).
 

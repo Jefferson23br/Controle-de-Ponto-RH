@@ -26,6 +26,25 @@ Objetivos centrais:
 | **Remuneração e freelancer** | Salário ou valor dia ou mês, **calculadora de valor-hora**, pagamento de horas que **zera** saldo pago no período mantendo histórico (horas pagas, valores). |
 | **Armazenamento por colaborador** | Artefatos e preenchimentos organizados em estrutura lógica (ex.: pastas por funcionário na infraestrutura do tenant), adequado a auditoria e backup. |
 
+## Stack tecnológica (logos)
+
+<p align="left">
+  <a href="https://dotnet.microsoft.com/apps/aspnet" title="ASP.NET Core"><img src="https://img.shields.io/badge/ASP.NET%20Core%209-512BD4?style=for-the-badge&logo=dotnet&logoColor=white" alt="ASP.NET Core 9" /></a>
+  <a href="https://learn.microsoft.com/dotnet/csharp/" title="C#"><img src="https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=csharp&logoColor=white" alt="C#" /></a>
+  <a href="https://dotnet.microsoft.com/apps/aspnet/web-apps/blazor" title="Blazor WebAssembly"><img src="https://img.shields.io/badge/Blazor%20WebAssembly-512BD4?style=for-the-badge&logo=blazor&logoColor=white" alt="Blazor WebAssembly" /></a>
+  <a href="https://learn.microsoft.com/ef/core/" title="Entity Framework Core"><img src="https://img.shields.io/badge/Entity%20Framework%20Core-512BD4?style=for-the-badge&logo=dotnet&logoColor=white" alt="Entity Framework Core" /></a>
+  <a href="https://www.oracle.com/database/" title="Oracle Database"><img src="https://img.shields.io/badge/Oracle-F80000?style=for-the-badge&logo=oracle&logoColor=white" alt="Oracle" /></a>
+  <a href="https://www.hangfire.io/" title="Hangfire"><img src="https://img.shields.io/badge/Hangfire-59388A?style=for-the-badge" alt="Hangfire" /></a>
+</p>
+
+<p align="left">
+  <img src="https://img.shields.io/badge/Clean%20Architecture-111111?style=for-the-badge" alt="Clean Architecture" />
+  <img src="https://img.shields.io/badge/DDD-004880?style=for-the-badge" alt="Domain-Driven Design" />
+  <img src="https://img.shields.io/badge/Multi--tenant-2C3E50?style=for-the-badge" alt="Multi-tenant" />
+</p>
+
+As imagens acima são badges (PNG via shields.io) e carregam direto no GitHub. Os links levam à documentação oficial de cada tecnologia.
+
 ## Arquitetura e stack (diretriz do projeto)
 
 | Camada | Tecnologia |

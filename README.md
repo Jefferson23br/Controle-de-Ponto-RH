@@ -1,3 +1,16 @@
+<!--
+  Copyright (C) 2026 ChronosPoint. Todos os direitos reservados.
+  Este ficheiro faz parte de software proprietario. Ver LICENSE na raiz.
+  Reproducao ou distribuicao sem autorizacao previa por escrito e proibida.
+-->
+
+<p align="left">
+  <img src="https://img.shields.io/badge/Licen%C3%A7a-Propriet%C3%A1ria-critical?style=for-the-badge" alt="Licenca proprietaria" />
+  <img src="https://img.shields.io/badge/C%C3%B3digo%20fechado-111111?style=for-the-badge" alt="Codigo fechado" />
+</p>
+
+**Licença:** proprietária. Este software é de **código fechado**. O uso, modificação ou redistribuição do código-fonte **não é permitido** sem consentimento expresso por escrito dos titulares. Ver o ficheiro **LICENSE** na raiz.
+
 # ChronosPoint
 
 Plataforma **SaaS multi-tenant** para automatizar a gestão, correção e apuração de **pontos eletrônicos**, com foco em escritórios de contabilidade e departamentos de RH que hoje fecham o mês em planilhas.
@@ -43,7 +56,7 @@ Objetivos centrais:
   <img src="https://img.shields.io/badge/Multi--tenant-2C3E50?style=for-the-badge" alt="Multi-tenant" />
 </p>
 
-As imagens acima são badges (PNG via shields.io) e carregam direto no GitHub. Os links levam à documentação oficial de cada tecnologia.
+As imagens são badges (shields.io) e carregam no GitHub. Links levam à documentação oficial.
 
 ## Arquitetura e stack (diretriz do projeto)
 
@@ -100,8 +113,6 @@ Contribuições e evolução do código devem respeitar a mesma linha.
 
 ## Estrutura esperada do código (quando o monorepo for criado)
 
-Sugestão de organização (ajuste conforme a implementação):
-
 ```
 /src
   /ChronosPoint.Domain
@@ -113,14 +124,21 @@ Sugestão de organização (ajuste conforme a implementação):
 /docs
 ```
 
-Em `docs/` ficam só o passagem de bastão e o registo de alterações: [`HANDOFF.md`](docs/HANDOFF.md) e [`CHANGELOG.md`](docs/CHANGELOG.md).
+Em `docs/`: [`HANDOFF.md`](docs/HANDOFF.md) e [`CHANGELOG.md`](docs/CHANGELOG.md).
 
 ## Licença e uso
 
-Defina a licença no arquivo `LICENSE` quando publicar (por exemplo MIT, Apache-2.0 ou proprietária). Até lá, o código e a documentação são de uso restrito do autor, salvo indicação contrária.
+**Proprietary software. All rights reserved. No redistribution allowed.** Texto completo: ficheiro **LICENSE** na raiz. O `package.json` declara `"license": "UNLICENSED"` e `"private": true` para tooling Node não assumir Open Source. Substitua "ChronosPoint" no cabeçalho dos ficheiros e no LICENSE pelo titular legal (nome ou empresa) quando aplicável.
 
 ## Contato / portfólio
 
-Use este README como **cartão de visitas**: visão clara de produto, stack e maturidade arquitetural. Para trabalhar em duas máquinas com Cursor, use **[`docs/HANDOFF.md`](docs/HANDOFF.md)**. Para o que já mudou no repo, use **[`docs/CHANGELOG.md`](docs/CHANGELOG.md)**. O **`.gitignore`** ajuda a não subir segredos nem pastas de build.
+**Jefferson Lima**
+
+- **Contato:** [(35) 98404-7078](tel:+5535984047078)
+- **Email:** [jeffersonlima@jeffersonlima.net.br](mailto:jeffersonlima@jeffersonlima.net.br)
+- **Portfolio:** [www.jeffersonlima.net.br](https://www.jeffersonlima.net.br)
+- **GitHub:** [https://github.com/Jefferson23br](https://github.com/Jefferson23br)
+
+Documentação do repositório: **[`docs/HANDOFF.md`](docs/HANDOFF.md)** (handoff) e **[`docs/CHANGELOG.md`](docs/CHANGELOG.md)** (alterações). O **`.gitignore`** ajuda a não subir segredos nem pastas de build.
 
 *ChronosPoint: controle de ponto com propósito, menos planilha frágil, mais apuração confiável.*

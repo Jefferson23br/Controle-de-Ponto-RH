@@ -139,6 +139,4 @@ Em `docs/`: [`HANDOFF.md`](docs/HANDOFF.md) e [`CHANGELOG.md`](docs/CHANGELOG.md
 - **Portfolio:** [www.jeffersonlima.net.br](https://www.jeffersonlima.net.br)
 - **GitHub:** [https://github.com/Jefferson23br](https://github.com/Jefferson23br)
 
-Documentação do repositório: **[`docs/HANDOFF.md`](docs/HANDOFF.md)** (handoff) e **[`docs/CHANGELOG.md`](docs/CHANGELOG.md)** (alterações). O **`.gitignore`** ajuda a não subir segredos nem pastas de build.
-
 *ChronosPoint: controle de ponto com propósito, menos planilha frágil, mais apuração confiável.*

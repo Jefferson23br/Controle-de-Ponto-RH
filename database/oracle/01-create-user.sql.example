@@ -1,0 +1,30 @@
+-- -----------------------------------------------------------------------------
+-- Copyright (C) 2026 ChronosPoint. Todos os direitos reservados.
+-- Script de exemplo: executar como SYSTEM, ou SYS com papel SYSDBA (no DBeaver:
+-- editar ligacao Oracle e definir Role = SYSDBA para SYS). Contas sem DBA
+-- recebem ORA-01031 ao executar CREATE USER.
+-- Ajuste nome de utilizador, password e tablespace antes de correr.
+-- -----------------------------------------------------------------------------
+
+-- Ver com que utilizador esta ligado (se nao for SYSTEM/SYS com SYSDBA, nao crie user aqui):
+-- SELECT USER FROM DUAL;
+
+-- Substitua CHRONOSPOINT_APP e a password antes de executar.
+-- NUNCA commite este ficheiro com passwords reais.
+
+-- Exemplo (Oracle 12c+ / PDB):
+-- CREATE USER CHRONOSPOINT_APP IDENTIFIED BY "SUBSTITUA_PELA_PASSWORD_FORTE"
+--   DEFAULT TABLESPACE USERS
+--   TEMPORARY TABLESPACE TEMP
+--   QUOTA UNLIMITED ON USERS;
+--
+-- GRANT CREATE SESSION TO CHRONOSPOINT_APP;
+-- GRANT CREATE TABLE TO CHRONOSPOINT_APP;
+-- GRANT CREATE SEQUENCE TO CHRONOSPOINT_APP;
+-- GRANT CREATE VIEW TO CHRONOSPOINT_APP;
+--
+-- Opcional (se usar tipos / procedures mais tarde):
+-- GRANT CREATE PROCEDURE TO CHRONOSPOINT_APP;
+
+-- Para revogar (apenas em ambiente de teste):
+-- DROP USER CHRONOSPOINT_APP CASCADE;

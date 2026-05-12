@@ -18,13 +18,21 @@
 --   TEMPORARY TABLESPACE TEMP
 --   QUOTA UNLIMITED ON USERS;
 --
+-- NOTA (EF Core / dotnet ef): o provider cria tabelas com EXECUTE IMMEDIATE dentro de
+-- PL/SQL anonimo. Nesses blocos as ROLES ficam desactivadas: privilegios que so existem
+-- via papel RESOURCE nao bastam. Use os GRANT CREATE TABLE ... directos abaixo.
+--
 -- GRANT CREATE SESSION TO CHRONOSPOINT_APP;
 -- GRANT CREATE TABLE TO CHRONOSPOINT_APP;
 -- GRANT CREATE SEQUENCE TO CHRONOSPOINT_APP;
 -- GRANT CREATE VIEW TO CHRONOSPOINT_APP;
---
--- Opcional (se usar tipos / procedures mais tarde):
 -- GRANT CREATE PROCEDURE TO CHRONOSPOINT_APP;
+-- GRANT CREATE TRIGGER TO CHRONOSPOINT_APP;
+--
+-- Obrigatorio para o EF Core criar tabelas (ex.: __EFMigrationsHistory): quota no tablespace
+-- por omissao. Sem isto pode dar ORA-01031 ao correr dotnet ef database update.
+-- GRANT UNLIMITED TABLESPACE TO CHRONOSPOINT_APP;
+--   (alternativa: ALTER USER CHRONOSPOINT_APP QUOTA UNLIMITED ON USERS;)
 
 -- Para revogar (apenas em ambiente de teste):
 -- DROP USER CHRONOSPOINT_APP CASCADE;

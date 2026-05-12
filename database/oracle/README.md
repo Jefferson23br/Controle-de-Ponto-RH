@@ -3,103 +3,184 @@
 ## 1. Criar utilizador da aplicacao
 
 1. Copie `01-create-user.sql.example` para um ficheiro **local** (fora do Git) ou descomente e edite no servidor.
-2. Ligue-se como **DBA** (SQL*Plus, SQL Developer, DBeaver, etc.).
-3. Defina um utilizador dedicado (ex.: `CHRONOSPOINT_APP`) e password forte.
-4. Garanta `QUOTA` no tablespace onde as tabelas vao residir (normalmente `USERS` ou tablespace da empresa).
+2. Ligue-se como **DBA** (SQL*Plus, SQL Developer, DBeaver).
+3. Crie o utilizador dedicado (ex.: `CHRONOSPOINT_APP`) na **PDB** onde a app vai ligar (ex.: `XEPDB1`), com password forte e `QUOTA` no tablespace acordado.
 
 Nao grave passwords no repositorio.
 
-## 1.1 Erro ORA-01031 (privilegios insuficientes) no DBeaver
+## 1.1 ORA-01031 (privilegios insuficientes) no DBeaver
 
-Significa: o **utilizador com que esta ligado** nao tem permissao para o comando que executou (por exemplo `CREATE USER`).
-
-**O que fazer:**
-
-1. **Criar utilizador (`CREATE USER`)** so pode ser feito por contas com privilegio de administracao, em geral:
-   - `SYS` como **SYSDBA**, ou
-   - `SYSTEM`, ou
-   - outro utilizador a quem o DBA tenha dado `CREATE USER` / papel **DBA**.
-
-   Contas “normais” da aplicacao (ex.: utilizador so para consultar dados) **nao** criam utilizadores.
-
-2. **No DBeaver** (ligacao Oracle):
-   - Edite a ligacao: **Driver properties** ou separador **Oracle** (conforme versao do DBeaver).
-   - Para ligar como `SYS`: defina o papel **SYSDBA** (opcao “Connection type” / “Role” = `SYSDBA`). Sem isto, `SYS` liga-se sem privilegios suficientes e falha o mesmo tipo de operacao.
-   - Confirme que esta na **PDB correta** (Oracle 12c+): o utilizador da aplicacao deve ser criado **dentro da PDB** onde a aplicacao vai trabalhar. Se estiver so no `CDB$ROOT` sem permissoes adequadas, tambem pode dar erro.
-
-3. **Se a base for gerida por terceiros (hosting / DBA da empresa):** peça a criacao do utilizador `CHRONOSPOINT_APP` (ou o nome acordado) e os **GRANTs** necessarios. Voce recebe utilizador + password + `SERVICE_NAME` e nao precisa de `CREATE USER` localmente.
-
-4. **Confirmar quem e a sessao atual** (com a ligacao que esta a usar):
+O utilizador da sessao nao pode executar o comando (ex.: `CREATE USER`). Use `SYSTEM` ou `SYS` como **SYSDBA**, ou peca ao DBA para criar o utilizador da aplicacao.
 
 ```sql
 SELECT USER AS usuario_atual FROM DUAL;
 ```
 
-Se nao for `SYSTEM` nem `SYS` (com SYSDBA), e normal nao conseguir `CREATE USER`.
+## 2. Connection string (referencia)
 
-## 2. Connection string para a API (.NET)
-
-Formatos comuns (ajuste `HOST`, `PORT`, `SERVICE_NAME` ou `SID` ao seu ambiente):
-
-**Easy Connect (recomendado para testes):**
+Easy Connect (exemplo):
 
 ```text
-User Id=CHRONOSPOINT_APP;Password=SUA_PASSWORD;Data Source=HOST:1521/NOME_DO_SERVICE;
+User Id=CHRONOSPOINT_APP;Password=***;Data Source=HOST:1521/XEPDB1
 ```
 
-**TNS (se tiver `tnsnames.ora` configurado no servidor da API):**
+Com TNS (`tnsnames.ora`): `Data Source=ALIAS_TNS;`
 
-```text
-User Id=CHRONOSPOINT_APP;Password=SUA_PASSWORD;Data Source=ALIAS_TNS;
-```
+## 3. User Secrets (desenvolvimento)
 
-## 3. User Secrets (desenvolvimento na sua maquina)
+Trabalhe em `src/ChronosPoint.Api`. **Escolha uma forma so** (evite duplicar):
 
-**Nao** coloque passwords em `appsettings.json` versionado. Use [User Secrets](https://learn.microsoft.com/aspnet/core/security/app-secrets) na pasta `src/ChronosPoint.Api`.
+| Forma | Chaves |
+|--------|--------|
+| **A** | `ConnectionStrings:Oracle` (string completa) |
+| **B** | `ORACLE_HOST`, `ORACLE_PORT`, `ORACLE_SERVICE_NAME`, `ORACLE_USER`, `ORACLE_PASSWORD` |
 
-**Opcao A — uma connection string (Easy Connect):**
+Se **A** existir, o codigo **ignora B**. Password com `;`, `@`, espacos: prefira **B** (o codigo usa `OracleConnectionStringBuilder`).
+
+### 3.0 PowerShell: leia isto para nao se cansar
+
+- **Mensagens de erro em ingles** (ex.: `Could not find a MSBuild project file...`) sao **saida** de um comando que correu mal. **Nao** as cole de volta no PowerShell: o PS tenta executar a primeira palavra (`Could`) como comando e da `CommandNotFoundException`.
+- `dotnet user-secrets remove ...` a dizer **Cannot find ... in the secret store** significa que **essa chave ja nao existe** (foi apagada ou nunca foi gravada). **Nao e falha:** pode ignorar e seguir.
+- Comandos `dotnet user-secrets` precisam do projeto: ou `cd src\ChronosPoint.Api` antes, ou `--project src\ChronosPoint.Api` na **raiz** do repo.
 
 ```bash
 cd src/ChronosPoint.Api
-dotnet user-secrets set "ConnectionStrings:Oracle" "User Id=CHRONOSPOINT_APP;Password=SUA_PASSWORD;Data Source=HOST:1521/XEPDB1"
-```
 
-**Opcao B — variaveis ORACLE_* (a API e o `dotnet ef` montam a string):**
-
-```bash
-cd src/ChronosPoint.Api
+# Forma B (recomendada com passwords especiais)
 dotnet user-secrets set "ORACLE_HOST" "HOST"
 dotnet user-secrets set "ORACLE_PORT" "1521"
 dotnet user-secrets set "ORACLE_SERVICE_NAME" "XEPDB1"
 dotnet user-secrets set "ORACLE_USER" "CHRONOSPOINT_APP"
 dotnet user-secrets set "ORACLE_PASSWORD" "SUA_PASSWORD"
+
+# Remover a forma A se ja nao quiser usa-la (use --project se nao estiver na pasta da API)
+dotnet user-secrets remove "ConnectionStrings:Oracle" --project src/ChronosPoint.Api
+
+dotnet user-secrets list --project src/ChronosPoint.Api
 ```
 
-Se `ConnectionStrings:Oracle` estiver preenchida, ela **tem prioridade** sobre `ORACLE_*`.
+**Seguranca:** nao partilhe passwords em chat nem em capturas. Se expuser, altere no Oracle e atualize os segredos.
 
-**Variaveis de ambiente (PowerShell, sessao atual):** `ConnectionStrings__Oracle` ou as chaves `ORACLE_HOST`, etc. (underscore duplo so na connection string.)
+### 3.1 ORA-01017 (invalid username/password)
 
-**Seguranca:** se a password foi exposta (chat, email, captura de ecra), **altere-a** no Oracle (`ALTER USER CHRONOSPOINT_APP IDENTIFIED BY nova_senha REPLACE antiga_senha;`) e atualize os segredos.
+O listener respondeu, mas o servidor **rejeitou** user/password, ou o utilizador **nao existe nessa PDB**.
+
+1. No DBeaver, ligue com **os mesmos** host, porta, service name, user e password.
+2. Confirme que o user foi criado **na PDB** do service (ex.: `XEPDB1`), nao so no `CDB$ROOT`.
+3. Remova `ConnectionStrings:Oracle` se estiver a usar **B**, para nao haver duas fontes em conflito.
+4. No PowerShell, veja se ha **variaveis de ambiente** antigas a sobrepor os secrets: `Get-ChildItem Env:ConnectionStrings*`, `Get-ChildItem Env:ORACLE_*`. Remova sessao com `Remove-Item Env:NOME` se for o caso.
+
+### 3.2 Ainda ORA-01017 (checklist no servidor Oracle)
+
+Ligue como **SYS ou SYSTEM** na **mesma PDB** do service name (ex.: `XEPDB1`) e confirme se o utilizador existe e esta desbloqueado:
+
+```sql
+ALTER SESSION SET CONTAINER = XEPDB1;
+SELECT username, account_status FROM dba_users WHERE username = 'CHRONOSPOINT_APP';
+```
+
+Se nao aparecer linha, o user **nao existe nesta PDB**: crie-o aqui ou ligue com o service name da PDB onde o user foi criado.
+
+Se existir com `LOCKED` ou password errada, redefina (ajuste a password):
+
+```sql
+ALTER USER CHRONOSPOINT_APP IDENTIFIED BY nova_password ACCOUNT UNLOCK;
+```
+
+Depois atualize `ORACLE_PASSWORD` nos User Secrets e volte a correr `dotnet ef database update`.
+
+### 3.3 ORA-01918 (o usuario nao existe)
+
+O comando (ex.: `ALTER USER`) foi corrido num contentor onde esse user **ainda nao foi criado**. Crie o user **dentro da PDB** do teu `SERVICE_NAME` (ex.: `XEPDB1`), como `SYSTEM` ou `SYS` com **SYSDBA**:
+
+```sql
+ALTER SESSION SET CONTAINER = XEPDB1;
+
+CREATE USER CHRONOSPOINT_APP IDENTIFIED BY "EscolhaUmaPasswordForte123"
+  DEFAULT TABLESPACE USERS
+  TEMPORARY TABLESPACE TEMP
+  QUOTA UNLIMITED ON USERS;
+
+GRANT CREATE SESSION TO CHRONOSPOINT_APP;
+GRANT CREATE TABLE TO CHRONOSPOINT_APP;
+GRANT CREATE SEQUENCE TO CHRONOSPOINT_APP;
+GRANT CREATE VIEW TO CHRONOSPOINT_APP;
+GRANT CREATE PROCEDURE TO CHRONOSPOINT_APP;
+GRANT CREATE TRIGGER TO CHRONOSPOINT_APP;
+GRANT UNLIMITED TABLESPACE TO CHRONOSPOINT_APP;
+```
+
+Se `USERS` ou `TEMP` nao existirem nesta PDB, ajuste com o que o DBA indicar (`SELECT tablespace_name FROM dba_tablespaces;`). Veja tambem `database/oracle/01-create-user.sql.example`.
+
+### 3.4 ORA-01031 ao correr `dotnet ef database update` (apos login OK)
+
+O EF Core Oracle cria `__EFMigrationsHistory` com um **bloco PL/SQL anonimo** (`EXECUTE IMMEDIATE 'CREATE TABLE ...'`). Nesses blocos o Oracle **desactiva roles**: privilegios que existem **so** atraves de `GRANT RESOURCE` / `CONNECT` **nao** aplicam-se ao DDL dinamico. Resultado: **ORA-01031** mesmo que o user “pareca” ter `RESOURCE`.
+
+**Correcao:** conceder privilegios de sistema **directos** ao utilizador (na PDB do service name), **alem** de quota no tablespace:
+
+```sql
+ALTER SESSION SET CONTAINER = XEPDB1;
+
+GRANT CREATE TABLE TO CHRONOSPOINT_APP;
+GRANT CREATE SEQUENCE TO CHRONOSPOINT_APP;
+GRANT CREATE VIEW TO CHRONOSPOINT_APP;
+GRANT CREATE PROCEDURE TO CHRONOSPOINT_APP;
+GRANT CREATE TRIGGER TO CHRONOSPOINT_APP;
+GRANT UNLIMITED TABLESPACE TO CHRONOSPOINT_APP;
+```
+
+Alternativa a `UNLIMITED TABLESPACE` (quota no tablespace por omissao do user, muitas vezes `USERS`):
+
+```sql
+ALTER USER CHRONOSPOINT_APP QUOTA UNLIMITED ON USERS;
+```
+
+**Verificar privilegios directos (como DBA, na mesma PDB):**
+
+```sql
+ALTER SESSION SET CONTAINER = XEPDB1;
+SELECT privilege FROM dba_sys_privs
+WHERE grantee = 'CHRONOSPOINT_APP'
+ORDER BY privilege;
+```
+
+Tem de constar `CREATE TABLE` (e idealmente `UNLIMITED TABLESPACE` ou quota em `USER_TS_QUOTAS`).
+
+**Verificar como o proprio user (sessao normal):**
+
+```sql
+SELECT privilege FROM USER_SYS_PRIVS ORDER BY privilege;
+```
+
+Se `CREATE TABLE` nao aparecer, os `GRANT` directos ainda nao foram aplicados **nesta PDB** ou foram dados a outro utilizador.
+
+Volte a correr `dotnet ef database update` depois disto.
 
 ## 4. Migracoes EF Core
 
-O projeto inclui `ChronosPointDbContextFactory` para o `dotnet ef` carregar a mesma configuracao (appsettings + User Secrets + ambiente).
-
-A partir da raiz do repositorio (com [.NET 9 SDK](https://dotnet.microsoft.com/download) e `dotnet` no PATH):
+Na **raiz** do repositorio:
 
 ```bash
-dotnet tool install --global dotnet-ef
-dotnet ef migrations add InitialCreate --project src/ChronosPoint.Infrastructure --startup-project src/ChronosPoint.Api
+dotnet tool restore
 dotnet ef database update --project src/ChronosPoint.Infrastructure --startup-project src/ChronosPoint.Api
 ```
 
-A connection string (ou `ORACLE_*`) tem de estar definida antes do `database update`.
+Sem User Secrets nesta maquina: pode passar a string uma vez com `--connection "User Id=...;Password=...;Data Source=..."`.
 
-Depois de subir a API em desenvolvimento, teste a ligacao: `GET /api/health/database` (deve responder `ok` com `database: oracle`).
+**Migracoes sem servidor Oracle** (so gerar ficheiros C#):
+
+```powershell
+$env:CHRONOSPOINT_EF_USE_PLACEHOLDER="1"
+dotnet ef migrations add NomeDaMigracao --project src/ChronosPoint.Infrastructure --startup-project src/ChronosPoint.Api
+```
+
+### 4.1 ORA-12541 / ORA-50201
+
+Ninguem escuta em `HOST:PORTA` (listener inactivo, IP/porta errados, firewall, ou placeholder `127.0.0.1` sem Oracle local). Confirme conectividade com DBeaver a partir deste PC.
 
 ## 5. Ambientes publicos (referencia)
 
-- API (planeado): `https://api7.auctusconsultoria.com.br`
-- Frontend Blazor (planeado): `https://rh.auctusconsultoria.com.br`
+- API: `https://api7.auctusconsultoria.com.br`
+- Frontend: `https://rh.auctusconsultoria.com.br`
 
-O CORS da API ja inclui a origem do frontend em `appsettings.json`. Se usar mais origens (ex.: preview), acrescente em configuracao.
+O CORS da API inclui a origem do frontend em `appsettings.json`.

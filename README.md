@@ -42,7 +42,7 @@ Objetivos centrais:
 ## Stack tecnológica (logos)
 
 <p align="left">
-  <a href="https://dotnet.microsoft.com/apps/aspnet" title="ASP.NET Core"><img src="https://img.shields.io/badge/ASP.NET%20Core%209-512BD4?style=for-the-badge&logo=dotnet&logoColor=white" alt="ASP.NET Core 9" /></a>
+  <a href="https://dotnet.microsoft.com/apps/aspnet" title="ASP.NET Core"><img src="https://img.shields.io/badge/ASP.NET%20Core%2010-512BD4?style=for-the-badge&logo=dotnet&logoColor=white" alt="ASP.NET Core 10" /></a>
   <a href="https://learn.microsoft.com/dotnet/csharp/" title="C#"><img src="https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=csharp&logoColor=white" alt="C#" /></a>
   <a href="https://dotnet.microsoft.com/apps/aspnet/web-apps/blazor" title="Blazor WebAssembly"><img src="https://img.shields.io/badge/Blazor%20WebAssembly-512BD4?style=for-the-badge&logo=blazor&logoColor=white" alt="Blazor WebAssembly" /></a>
   <a href="https://learn.microsoft.com/ef/core/" title="Entity Framework Core"><img src="https://img.shields.io/badge/Entity%20Framework%20Core-512BD4?style=for-the-badge&logo=dotnet&logoColor=white" alt="Entity Framework Core" /></a>
@@ -62,7 +62,7 @@ As imagens são badges (shields.io) e carregam no GitHub. Links levam à documen
 
 | Camada | Tecnologia |
 |--------|------------|
-| **Backend** | ASP.NET Core 9, Web API RESTful |
+| **Backend** | ASP.NET Core 10, Web API RESTful |
 | **Frontend** | Blazor WebAssembly |
 | **Persistência** | Entity Framework Core + Oracle |
 | **Jobs / filas** | Hangfire (apuração e importações pesadas) |
@@ -115,6 +115,7 @@ Contribuições e evolução do código devem respeitar a mesma linha.
 
 ```
 ChronosPoint.sln
+.config/dotnet-tools.json   (dotnet-ef local; correr dotnet tool restore na raiz)
 database/oracle/
   01-create-user.sql.example
   README.md

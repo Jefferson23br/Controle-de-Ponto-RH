@@ -1,3 +1,9 @@
+<!--
+  Copyright (C) 2026 ChronosPoint. Todos os direitos reservados.
+  Este ficheiro faz parte de software proprietario. Ver LICENSE na raiz.
+  Reproducao ou distribuicao sem autorizacao previa por escrito e proibida.
+-->
+
 # HANDOFF CHRONOSPOINT
 
 Passagem de bastão entre duas máquinas (Cursor). Leia também `CHANGELOG.md` na mesma pasta `docs/` antes de retomar trabalho.
@@ -5,6 +11,73 @@ Passagem de bastão entre duas máquinas (Cursor). Leia também `CHANGELOG.md` n
 ## ENCODING
 
 Grave ficheiros `.md` em UTF 8 (sem BOM se possível). Não use UTF 16 no Git: o editor pode mostrar lixo no início do ficheiro.
+
+## CABECALHO DE LICENCA EM TODO O CODIGO FONTE (OBRIGATORIO)
+
+**Regra:** cada ficheiro de código-fonte novo (`.cs`, `.razor`, `.cshtml`, `.js`, `.ts`, `.tsx`, `.sql`, `.ps1`, `.py`, etc.) deve começar pelo aviso de copyright no topo, **antes** de qualquer `using` ou lógica.
+
+Substitua `ChronosPoint` pelo titular legal (nome ou empresa) se for diferente. Mantenha o ano (`2026`) atualizado quando fizer sentido.
+
+### C# / Razor (comentario de linha)
+
+```csharp
+// -----------------------------------------------------------------------------
+// Copyright (C) 2026 ChronosPoint. Todos os direitos reservados.
+// Este codigo e de propriedade exclusiva e confidencial.
+// A reproducao ou distribuicao sem autorizacao previa por escrito e proibida.
+// -----------------------------------------------------------------------------
+```
+
+### JavaScript / TypeScript / C-style
+
+```javascript
+/*
+ * Copyright (C) 2026 ChronosPoint. Todos os direitos reservados.
+ * Este codigo e de propriedade exclusiva e confidencial.
+ * A reproducao ou distribuicao sem autorizacao previa por escrito e proibida.
+ */
+```
+
+### SQL
+
+```sql
+-- -----------------------------------------------------------------------------
+-- Copyright (C) 2026 ChronosPoint. Todos os direitos reservados.
+-- Este script e de propriedade exclusiva e confidencial.
+-- A reproducao ou distribuicao sem autorizacao previa por escrito e proibida.
+-- -----------------------------------------------------------------------------
+```
+
+### PowerShell
+
+```powershell
+# -----------------------------------------------------------------------------
+# Copyright (C) 2026 ChronosPoint. Todos os direitos reservados.
+# Este codigo e de propriedade exclusiva e confidencial.
+# A reproducao ou distribuicao sem autorizacao previa por escrito e proibida.
+# -----------------------------------------------------------------------------
+```
+
+### Ficheiros `.csproj` / XML (logo apos a declaracao XML, se existir)
+
+```xml
+<!--
+  Copyright (C) 2026 ChronosPoint. Todos os direitos reservados.
+  Este ficheiro faz parte de software proprietario. Ver LICENSE na raiz.
+-->
+```
+
+### Markdown / docs
+
+Use comentário HTML no topo (como neste ficheiro) ou as primeiras linhas em `#` com referência ao `LICENSE`.
+
+### `package.json`
+
+Não suporta comentários. Mantenha `"license": "UNLICENSED"` e `"private": true` e a descrição a remeter para o `LICENSE`.
+
+### Antes de cada `git push`
+
+Confirme que **nenhum** ficheiro novo de código foi adicionado sem o cabeçalho acima (revisão rápida no diff).
 
 ## 1 ANTES DE TROCAR DE MAQUINA
 
@@ -19,6 +92,7 @@ Grave ficheiros `.md` em UTF 8 (sem BOM se possível). Não use UTF 16 no Git: o
 - [ ] Sem planilhas reais de ponto (nomes, CPF, salário, batidas).
 - [ ] Sem `.env`, sem `*.pfx`, sem wallet Oracle real no índice.
 - [ ] Não adicionar `bin/`, `obj/`, nem user secrets por engano.
+- [ ] **Todo ficheiro de código novo tem cabeçalho de copyright** (secção acima).
 
 Se tiver dúvida, não faça push. Se já subiu segredo: rode a credencial e trate o histórico com `git filter-repo` ou apoio do GitHub.
 
@@ -37,7 +111,7 @@ Se tiver dúvida, não faça push. Se já subiu segredo: rode a credencial e tra
 
 ## 3 CHANGELOG
 
-O ficheiro é `docs/CHANGELOG.md` (ao lado deste handoff). Atualize no fim de entregas úteis ou antes de merge em `main`. Secções: ADICIONADO, ALTERADO, CORRIGIDO, REMOVIDO, SEGURANCA. Datas em ISO.
+O ficheiro é `docs/CHANGELOG.md` (ao lado deste handoff). Atualize no fim de entregas úteis ou antes de merge em `main`. Secções: ADICIONADO, ALTERADO, CORRIGIDO, REMOVIDO, SEGURANÇA. Datas em ISO.
 
 ## 4 GITHUB E DADOS SENSIVEIS
 
@@ -46,6 +120,8 @@ O ficheiro é `docs/CHANGELOG.md` (ao lado deste handoff). Atualize no fim de en
 - Salários e pagamentos: só em ambiente controlado.
 
 Ficheiros `.xls` ou `.xlsx` com dados reais: não envie para remoto público. Use `.gitignore` ou `git rm --cached` e troque por amostra limpa.
+
+Amplie `.gitignore` quando surgir novo tipo de segredo e anote neste ficheiro.
 
 ## 5 BRANCHES
 
@@ -59,7 +135,7 @@ Tags tipo `v0.1.0` alinhadas ao changelog.
 
 Edite no fim de cada sessão importante (fale consigo mesmo aqui).
 
-- 2026 05 12: Docs em `docs/` reduzidos a `HANDOFF.md` + `CHANGELOG.md`. UTF 8 no README da raiz.
+- 2026 05 12: LICENSE, package.json, avisos no README, cabeçalhos em ficheiros de repo, regra de copyright em todo o código no HANDOFF.
 
 ## 7 LAYOUTS (SEM DADOS REAIS)
 

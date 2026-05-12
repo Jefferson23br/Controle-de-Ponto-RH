@@ -1,3 +1,9 @@
+# -----------------------------------------------------------------------------
+# Copyright (C) 2026 ChronosPoint. Todos os direitos reservados.
+# Este ficheiro faz parte de software proprietario. Ver LICENSE na raiz.
+# Reproducao ou distribuicao sem autorizacao previa por escrito e proibida.
+# -----------------------------------------------------------------------------
+
 # Auto detect text files and perform LF normalization
 * text=auto
 

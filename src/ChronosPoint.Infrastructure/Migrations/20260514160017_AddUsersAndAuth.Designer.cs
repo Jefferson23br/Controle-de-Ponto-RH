@@ -3,6 +3,7 @@ using System;
 using ChronosPoint.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Oracle.EntityFrameworkCore.Metadata;
 
@@ -11,9 +12,11 @@ using Oracle.EntityFrameworkCore.Metadata;
 namespace ChronosPoint.Infrastructure.Migrations
 {
     [DbContext(typeof(ChronosPointDbContext))]
-    partial class ChronosPointDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260514160017_AddUsersAndAuth")]
+    partial class AddUsersAndAuth
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

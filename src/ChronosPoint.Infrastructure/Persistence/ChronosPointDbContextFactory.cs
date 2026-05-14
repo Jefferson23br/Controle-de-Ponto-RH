@@ -7,6 +7,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
+using Oracle.EntityFrameworkCore.Infrastructure;
 
 namespace ChronosPoint.Infrastructure.Persistence;
 
@@ -59,7 +60,7 @@ public sealed class ChronosPointDbContextFactory : IDesignTimeDbContextFactory<C
         }
 
         var optionsBuilder = new DbContextOptionsBuilder<ChronosPointDbContext>();
-        optionsBuilder.UseOracle(oracleConnection);
+        optionsBuilder.UseOracle(oracleConnection, o => o.UseOracleSQLCompatibility(OracleSQLCompatibility.DatabaseVersion21));
         return new ChronosPointDbContext(optionsBuilder.Options);
     }
 

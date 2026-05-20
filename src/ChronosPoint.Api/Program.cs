@@ -43,6 +43,9 @@ if (corsOrigins.Length > 0)
     app.UseCors("Frontend");
 }
 
+app.UseAuthentication();
+app.UseAuthorization();
+
 app.MapGet("/api/health", () => Results.Ok(new
 {
     status = "ok",
@@ -65,7 +68,8 @@ app.MapGet("/api/health/database", async (IServiceProvider sp, CancellationToken
         : Results.Problem("Nao foi possivel ligar ao Oracle.", statusCode: 503);
 });
 
-// Rotas de negocio agrupadas em extensoes (ficheiros separados) para o Program.cs ficar legivel.
 app.MapTenantsApi();
+app.MapAuthApi();
+app.MapUsersApi();
 
 app.Run();

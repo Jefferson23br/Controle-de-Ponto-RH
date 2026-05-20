@@ -17,6 +17,8 @@ public class ChronosPointDbContext : DbContext
     }
 
     public DbSet<Tenant> Tenants => Set<Tenant>();
+    public DbSet<User> Users => Set<User>();
+    public DbSet<UserTenant> UserTenants => Set<UserTenant>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -26,6 +28,45 @@ public class ChronosPointDbContext : DbContext
             entity.HasKey(e => e.Id);
             entity.Property(e => e.Name).HasMaxLength(256).IsRequired();
             entity.Property(e => e.CreatedAtUtc).IsRequired();
+        });
+
+        modelBuilder.Entity<User>(entity =>
+        {
+            entity.ToTable("CHRONOSPOINT_USERS");
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.FullName).HasMaxLength(200).IsRequired();
+            entity.Property(e => e.Email).HasMaxLength(256).IsRequired();
+            entity.Property(e => e.PasswordHash).HasMaxLength(512).IsRequired();
+            entity.Property(e => e.IsActive)
+                  .HasConversion<int>()
+                  .HasColumnType("NUMBER(1)")
+                  .IsRequired();
+            entity.Property(e => e.CreatedAtUtc).IsRequired();
+
+            entity.HasIndex(e => e.Email).IsUnique();
+        });
+
+        modelBuilder.Entity<UserTenant>(entity =>
+        {
+            entity.ToTable("CHRONOSPOINT_USER_TENANTS");
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.Role)
+                  .HasConversion<string>()
+                  .HasMaxLength(20)
+                  .IsRequired();
+            entity.Property(e => e.CreatedAtUtc).IsRequired();
+
+            entity.HasOne(e => e.User)
+                  .WithMany(u => u.UserTenants)
+                  .HasForeignKey(e => e.UserId)
+                  .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasOne(e => e.Tenant)
+                  .WithMany()
+                  .HasForeignKey(e => e.TenantId)
+                  .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasIndex(e => new { e.UserId, e.TenantId }).IsUnique();
         });
     }
 }

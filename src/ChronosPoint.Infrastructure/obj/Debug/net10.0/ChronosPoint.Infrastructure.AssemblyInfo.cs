@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ChronosPoint.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e06f3ead6c35745d6e32c96be03815150ec3d25d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+61e62ceb07168b92346e7f2c5aa69629916045bf")]
 [assembly: System.Reflection.AssemblyProductAttribute("ChronosPoint.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ChronosPoint.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

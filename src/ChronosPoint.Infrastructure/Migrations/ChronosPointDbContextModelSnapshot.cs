@@ -40,6 +40,95 @@ namespace ChronosPoint.Infrastructure.Migrations
 
                     b.ToTable("CHRONOSPOINT_TENANTS", (string)null);
                 });
+
+            modelBuilder.Entity("ChronosPoint.Domain.Entities.User", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("RAW(16)");
+
+                    b.Property<DateTimeOffset>("CreatedAtUtc")
+                        .HasColumnType("TIMESTAMP(7) WITH TIME ZONE");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("NVARCHAR2(256)");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("NVARCHAR2(200)");
+
+                    b.Property<int>("IsActive")
+                        .HasColumnType("NUMBER(1)");
+
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasMaxLength(512)
+                        .HasColumnType("NVARCHAR2(512)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.ToTable("CHRONOSPOINT_USERS", (string)null);
+                });
+
+            modelBuilder.Entity("ChronosPoint.Domain.Entities.UserTenant", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("RAW(16)");
+
+                    b.Property<DateTimeOffset>("CreatedAtUtc")
+                        .HasColumnType("TIMESTAMP(7) WITH TIME ZONE");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("NVARCHAR2(20)");
+
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("RAW(16)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("RAW(16)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TenantId");
+
+                    b.HasIndex("UserId", "TenantId")
+                        .IsUnique();
+
+                    b.ToTable("CHRONOSPOINT_USER_TENANTS", (string)null);
+                });
+
+            modelBuilder.Entity("ChronosPoint.Domain.Entities.UserTenant", b =>
+                {
+                    b.HasOne("ChronosPoint.Domain.Entities.Tenant", "Tenant")
+                        .WithMany()
+                        .HasForeignKey("TenantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ChronosPoint.Domain.Entities.User", "User")
+                        .WithMany("UserTenants")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Tenant");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("ChronosPoint.Domain.Entities.User", b =>
+                {
+                    b.Navigation("UserTenants");
+                });
 #pragma warning restore 612, 618
         }
     }
